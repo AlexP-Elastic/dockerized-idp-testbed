@@ -1,0 +1,28 @@
+cluster.name: "docker-cluster"
+network.host: 0.0.0.0
+
+# minimum_master_nodes need to be explicitly set when bound on a public IP
+# set to 1 to allow single node clusters
+# Details: https://github.com/elastic/elasticsearch/pull/17288
+#discovery.zen.minimum_master_nodes: 1
+
+#use this to run in development mode instead of production mode, meaning we don't need ssl enabled
+discovery.type: single-node
+xpack.license.self_generated.type: trial
+
+xpack.security.authc.realms.native1:
+  type: native
+  order: 0
+
+xpack.security.authc.realms.saml1:
+  type: saml
+  order: 2
+  idp.metadata.path: "/usr/share/elasticsearch/config/idp-metadata.xml" 
+  idp.entity_id: "https://idptestbed/idp/shibboleth"
+  sp.entity_id:  "http://idptestbed:5601/"
+  sp.acs: "http://idptestbed:5601/api/security/v1/saml"
+  sp.logout: "http://idptestbed:5601/logout"
+  attributes.principal: "urn:oid:0.9.2342.19200300.100.1.1"
+#  attributes.groups: "urn:oid:1.3.6.1.4.1.5923.1.5.1."
+
+xpack.security.authc.token.enabled: true
