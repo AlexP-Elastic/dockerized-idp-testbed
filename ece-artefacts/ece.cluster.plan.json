@@ -1,0 +1,89 @@
+{
+  "tiebreaker_topology": {
+    "memory_per_node": 1024
+  },
+  "elasticsearch": {
+    "user_settings_override_json": {
+      "discovery.type": "single-node"
+    },
+    "user_settings_json": {
+      "xpack.security.authc.realms.saml1": {
+        "sp.entity_id": "http://idptestbed:12300/",
+        "sp.acs": "http://idptestbed:12300/api/v1/auth/sso/saml/_callback",
+        "attributes.principal": "urn:oid:0.9.2342.19200300.100.1.1",
+        "sp.logout": "http://idptestbed:12300/api/v1/auth/sso/saml/_logout",
+        "order": 5,
+        "idp.metadata.path": "/app/config/idp-metadata.xml",
+        "type": "saml",
+        "idp.entity_id": "https://idptestbed/idp/shibboleth"
+      },
+      "xpack.security.authc.token.enabled": true
+    },
+    "enabled_built_in_plugins": [],
+    "user_bundles": [
+      {
+        "name": "saml_config",
+        "url": "https://www.dropbox.com/s/l1jxy7ez3hhz5jv/saml.zip?dl=0",
+        "elasticsearch_version": "6.2.0"
+      }
+    ],
+    "version": "6.2.0",
+    "system_settings": {
+      "enable_close_index": false,
+      "use_disk_threshold": false,
+      "monitoring_collection_interval": -1,
+      "monitoring_history_duration": "7d",
+      "destructive_requires_name": false,
+      "reindex_whitelist": [],
+      "auto_create_index": true,
+      "scripting": {
+        "stored": {
+          "enabled": true
+        },
+        "inline": {
+          "enabled": true
+        }
+      },
+      "http": {
+        "compression": true,
+        "cors_enabled": false,
+        "cors_max_age": 1728000,
+        "cors_allow_credentials": false
+      }
+    },
+    "user_plugins": []
+  },
+  "zone_count": 1,
+  "transient": {
+    "strategy": {
+      "rolling": {}
+    },
+    "plan_configuration": {
+      "preferred_allocators": [],
+      "max_snapshot_attempts": 3,
+      "move_allocators": [],
+      "skip_snapshot": false,
+      "move_instances": [],
+      "skip_post_upgrade_steps": false,
+      "extended_maintenance": false,
+      "skip_upgrade_checker": false,
+      "override_failsafe": false,
+      "skip_data_migration": false,
+      "reallocate_instances": false,
+      "timeout": 4096
+    }
+  },
+  "cluster_topology": [
+    {
+      "node_type": {
+        "master": true,
+        "data": true,
+        "ingest": true,
+        "ml": false
+      },
+      "memory_per_node": 1024,
+      "node_count_per_zone": 1,
+      "node_configuration": "default"
+    }
+  ]
+}
